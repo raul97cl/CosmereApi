@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+  datasource:
+    url: jdbc:sqlite:cosmeredb.db
+    username: admin
+    password: admin
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-platform: com.cosmere.configuration.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+      
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
