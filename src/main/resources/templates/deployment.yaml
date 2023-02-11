@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cosmere-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cosmere-api
+  template:
+    metadata:
+      labels:
+        app: cosmere-api
+    spec:
+      containers:
+      - name: cosmereapi
+        image: mazigros/cosmereapi:latest
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 30
