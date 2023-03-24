@@ -55,9 +55,9 @@ public class CharacterServiceImpl implements CharacterService {
 		
 		logger.info(String.format("Finding characters with name [%s]", characterName));
 		final List<CosmereCharacter> charactersFound = this.characterRepo.findByNameLike(characterName);
-		
+
 		List<CosmereCharacterDTO> characters = charactersFound.stream().map(character -> this.mapper.map(character, CosmereCharacterDTO.class)).collect(Collectors.toList());
-	
+
 		return characters;
 	}
 

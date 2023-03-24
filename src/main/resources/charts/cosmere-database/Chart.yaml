@@ -1,0 +1,5 @@
+apiVersion: v2
+name: cosmere-database
+type: application
+version: 1.0.0
+appVersion: "5.7.41"

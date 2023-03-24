@@ -8,12 +8,14 @@ spring:
     pathmatch:
       matching-strategy: ant-path-matcher
   datasource:
-    url: jdbc:sqlite:cosmeredb.db
-    username: admin
-    password: admin
-    driver-class-name: org.sqlite.JDBC
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    dbcp2:
+      time-between-eviction-runs-millis: 60000
   jpa:
-    database-platform: com.cosmere.configuration.SQLiteDialect
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
     hibernate:
       ddl-auto: update
       
