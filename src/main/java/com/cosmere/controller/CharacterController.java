@@ -50,7 +50,7 @@ public class CharacterController {
 		
 		final List<CosmereCharacterDTO> charactersFound = this.characterService.findByName(name);
 		
-		return new ResponseEntity<>(charactersFound, !charactersFound.isEmpty() ? HttpStatus.CREATED : HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(charactersFound, !charactersFound.isEmpty() ? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
 	@DeleteMapping("/delete/{characterId}")

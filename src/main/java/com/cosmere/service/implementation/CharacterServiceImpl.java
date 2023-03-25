@@ -1,15 +1,11 @@
 package com.cosmere.service.implementation;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cosmere.dto.CosmereCharacterDTO;
@@ -23,11 +19,14 @@ public class CharacterServiceImpl implements CharacterService {
 
 	private static Logger logger = LogManager.getLogger(CharacterServiceImpl.class);
 	
-	@Autowired
 	public CharacterRepository characterRepo;
 	
-	@Autowired
 	private ModelMapper mapper;
+	
+	public CharacterServiceImpl(ModelMapper mapper, CharacterRepository characterRepo) {
+		this.mapper = mapper;
+		this.characterRepo = characterRepo;
+	}
 
 	@Override
 	public CosmereCharacterDTO createCharacter(CosmereCharacterDTO character) {
@@ -54,7 +53,7 @@ public class CharacterServiceImpl implements CharacterService {
 	public List<CosmereCharacterDTO> findByName(String characterName){
 		
 		logger.info(String.format("Finding characters with name [%s]", characterName));
-		final List<CosmereCharacter> charactersFound = this.characterRepo.findByNameLike(characterName);
+		final List<CosmereCharacter> charactersFound = this.characterRepo.findByNameContaining(characterName);
 
 		List<CosmereCharacterDTO> characters = charactersFound.stream().map(character -> this.mapper.map(character, CosmereCharacterDTO.class)).collect(Collectors.toList());
 
